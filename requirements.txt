@@ -1,0 +1,13 @@
+flask
+numpy
+pandas
+pyyaml
+plotly
+pywebio
+langchain 
+python-dotenv
+langchain-groq
+langchain-core 
+langchain-community 
+langchain-experimental
+-e .
