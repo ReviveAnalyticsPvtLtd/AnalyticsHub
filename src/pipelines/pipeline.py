@@ -36,7 +36,6 @@ class CompletePipeline:
 
             attributeInfo = self.dataIngestion.getAttributeInfo(files=inputData)
             self.domainContext = domainContext
-            self.attributeSummary = self.dataIngestion.readMetadata(fileContent=attributeInfo)
             self.chain = self.queryChainBuilder.getChain()
             self.metadata = self.queryChainBuilder.getMetadataChain().invoke({"metadata": attributeInfo})
             logger.info("Pipeline initialized successfully.")
