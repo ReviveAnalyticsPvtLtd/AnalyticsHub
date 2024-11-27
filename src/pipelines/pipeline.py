@@ -39,9 +39,10 @@ class CompletePipeline:
             self.domainContext = domainContext
             self.chain = self.queryChainBuilder.getChain()
             metadata = self.queryChainBuilder.getMetadataChain().invoke({"metadata": attributeInfo})
+            print(metadata)
             metadataParts = metadata.split("```")
             metadata = metadataParts[-2]
-            metadata = "\n".join(code.split("\n")[1:]) 
+            metadata = "\n".join(metadata.split("\n")[1:]) 
             self.metadata = json.loads(metadata)
             logger.info("Pipeline initialized successfully.")
         except Exception as e:
