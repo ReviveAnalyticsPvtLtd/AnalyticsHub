@@ -1,9 +1,10 @@
+from src.utils.functions import getConfig, validateJson
 from src.pipelines.pipeline import CompletePipeline
 from pywebio.platform.flask import start_server
-from src.utils.functions import getConfig
 from pywebio.output import *
 from pywebio.input import *
 from pywebio import config
+import json
 import os
 
 @config(title="AutoDataAnalyzer")
@@ -22,11 +23,22 @@ def main():
                                 file_upload(name="files", label="Upload Files", accept=".csv", multiple=True, placeholder="Drop your CSV files here"),
                                 input(name="domain", label="Enter the Domain of your dataset")
                             ])
-    
+
     # Load data into the pipeline
     with put_loading().style("position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;"):
         put_text("Generating metadata... This may take a moment.")
         pipeline.loadData(inputData=inputData["files"], domainContext=inputData["domain"])
+
+    metadata = textarea(
+        label = "Generated Metadata:",
+        code = {
+            "language": "yaml",
+            "theme": "dracula"
+        },
+        value = json.dumps(pipeline.metadata, indent = 3),
+        validate = validateJson
+    )
+    pipeline.metadata = json.loads(metadata)
 
     # Interactive question loop
     while True:

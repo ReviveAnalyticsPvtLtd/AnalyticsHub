@@ -1,4 +1,5 @@
 import yaml
+import json
 import configparser
 
 def readYaml(filePath: str) -> dict:
@@ -28,3 +29,24 @@ def getConfig(path: str) -> dict:
     config = configparser.ConfigParser()
     config.read(path)
     return config
+
+def validateJson(string: str) -> str:
+    """
+    Validates if a given string is a valid JSON.
+
+    This function attempts to parse the input string as JSON using `json.loads()`. 
+    If the string is valid JSON, the function returns `None`. If not, it returns 
+    an error message indicating that the string is not valid JSON.
+
+    Args:
+        string (str): The JSON string to be validated.
+
+    Returns:
+        str: An error message ("Not a valid json") if the string is invalid JSON,
+             or `None` if the string is valid JSON.
+    """
+    try:
+        json.loads(string)
+        return None
+    except:
+        return "Invalid Json"
