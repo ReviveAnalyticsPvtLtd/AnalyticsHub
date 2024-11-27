@@ -36,7 +36,8 @@ def main():
             "theme": "dracula"
         },
         value = json.dumps(pipeline.metadata, indent = 3),
-        validate = validateJson
+        validate = validateJson,
+        rows = 50
     )
     pipeline.metadata = json.loads(metadata)
 
