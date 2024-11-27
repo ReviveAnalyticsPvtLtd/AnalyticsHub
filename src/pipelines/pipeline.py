@@ -4,6 +4,7 @@ from src.components.codeGenerator import CodeGenerator
 from src.components.dataIngestion import DataIngestion
 from src.utils.exceptions import CustomException
 from src.utils.logger import logger
+import json
 
 class CompletePipeline:
     def __init__(self):
@@ -37,7 +38,11 @@ class CompletePipeline:
             attributeInfo = self.dataIngestion.getAttributeInfo(files=inputData)
             self.domainContext = domainContext
             self.chain = self.queryChainBuilder.getChain()
-            self.metadata = self.queryChainBuilder.getMetadataChain().invoke({"metadata": attributeInfo})
+            metadata = self.queryChainBuilder.getMetadataChain().invoke({"metadata": attributeInfo})
+            metadataParts = metadata.split("```")
+            metadata = codeBlockParts[-2]
+            metadata = "\n".join(code.split("\n")[1:]) 
+            self.metadata = json.loads(metadata)
             logger.info("Pipeline initialized successfully.")
         except Exception as e:
             logger.error(f"Error during loadData: {e}")
