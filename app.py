@@ -14,60 +14,55 @@ def main():
     Facilitates file uploads, processes user queries, and displays responses using the CompletePipeline.
     The application runs interactively until the user inputs "exit".
     """
-    try:
-        pipeline = CompletePipeline()
+    pipeline = CompletePipeline()
 
-        # File upload and domain input
-        inputData = input_group("Data Upload", 
-                                inputs=[
-                                    file_upload(name="files", label="Upload Files", accept=".csv", multiple=True, placeholder="Drop your CSV files here"),
-                                    input(name="domain", label="Enter the Domain of your dataset")
-                                ])
-        
-        # Load data into the pipeline
-        with put_loading().style("position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;"):
-            put_text("Generating metadata... This may take a moment.")
-            pipeline.loadData(inputData=inputData["files"], domainContext=inputData["domain"])
+    # File upload and domain input
+    inputData = input_group("Data Upload", 
+                            inputs=[
+                                file_upload(name="files", label="Upload Files", accept=".csv", multiple=True, placeholder="Drop your CSV files here"),
+                                input(name="domain", label="Enter the Domain of your dataset")
+                            ])
+    
+    # Load data into the pipeline
+    with put_loading().style("position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;"):
+        put_text("Generating metadata... This may take a moment.")
+        pipeline.loadData(inputData=inputData["files"], domainContext=inputData["domain"])
 
-        # Interactive question loop
-        while True:
-            question = input(label="Enter your question")
-            if question.lower() == "exit":
-                break
-
+    # Interactive question loop
+    while True:
+        question = input(label="Enter your question")
+        if question.lower() == "exit":
+            break
+        else:
             with put_loading().style("position: absolute; left: 50%;"):
                 success = False
-                last_error = ""
                 for attempt in range(5):
                     try:
                         filename, code = pipeline.generateGraph(query=question)
-                        message = pipeline.pythonRepl.run(code)
-                        if not message:
-                            success = True
-                            break
-                    except Exception as e:
-                        last_error = str(e)
+                    except:
+                        continue
+                    message = pipeline.pythonRepl.run(code)
+                    if message == "":
+                        success = True
+                        break
+                    else:
+                        pass
 
-                # Handle result or failure
-                if not success:
-                    put_table([
-                        ["Query: ", question],
-                        ["Response: ", put_text(f"Encountered error after 5 tries: {last_error}")]
-                    ])
-                else:
-                    put_table([
-                        ["Query: ", question],
-                        ["Response: ", put_html(open(filename, "r").read())]
-                    ])
-                    os.remove(filename)
-    except Exception as e:
-        put_error(f"An error occurred: {e}")
+            # Handle result or failure
+            if success == False:
+                put_table([
+                    ["Query: ", question],
+                    ["Response: ", put_text(f"Encountered error after 5 tries: {last_error}")]
+                ])
+            else:
+                put_table([
+                    ["Query: ", question],
+                    ["Response: ", put_html(open(filename, "r").read())]
+                ])
+                os.remove(filename)
 
 if __name__ == "__main__":
-    try:
-        config = getConfig("config.ini")
-        port = config.getint("APPLICATION", "port")
-        host = config.get("APPLICATION", "host")
-        start_server(main, port=port, host=host)
-    except Exception as e:
-        print(f"Critical error: {e}")
+    config = getConfig("config.ini")
+    port = config.getint("APPLICATION", "port")
+    host = config.get("APPLICATION", "host")
+    start_server(main, port=port, host=host)

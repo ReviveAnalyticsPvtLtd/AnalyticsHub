@@ -60,7 +60,7 @@ class CodeGenerator:
             config = {"displaylogo": False}
             refinedCode = (
                 codeSplit[0] +
-                f"write_html('{filename}', include_plotlyjs='require', config={config})" +
+                f"write_html('{filename}', full_html = False, include_plotlyjs='require', config={config})" +
                 codeSplit[1]
             )
             logger.info("Code refinement successful.")
