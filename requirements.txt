@@ -4,6 +4,7 @@ pandas
 pyyaml
 plotly
 pywebio
+datatable
 langchain 
 python-dotenv
 langchain-groq
