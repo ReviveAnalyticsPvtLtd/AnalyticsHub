@@ -55,7 +55,7 @@ def main():
                     ["Query: ", question],
                     ["Response: ", put_html(open(filename, "r").read())]
                 ])
-            os.remove(filename)
+                os.remove(filename)
 
 if __name__ == "__main__":
     config = getConfig("config.ini")
