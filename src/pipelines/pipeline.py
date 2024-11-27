@@ -40,7 +40,7 @@ class CompletePipeline:
             self.chain = self.queryChainBuilder.getChain()
             metadata = self.queryChainBuilder.getMetadataChain().invoke({"metadata": attributeInfo})
             metadataParts = metadata.split("```")
-            metadata = codeBlockParts[-2]
+            metadata = metadataParts[-2]
             metadata = "\n".join(code.split("\n")[1:]) 
             self.metadata = json.loads(metadata)
             logger.info("Pipeline initialized successfully.")
