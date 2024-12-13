@@ -52,7 +52,7 @@ def main():
                 for attempt in range(5):
                     try:
                         filename, code = pipeline.generateGraph(query=question)
-                    except:
+                    except Exception as lastError:
                         continue
                     message = pipeline.pythonRepl.run(code)
                     if message == "":
@@ -65,7 +65,7 @@ def main():
             if success == False:
                 put_table([
                     ["Query: ", question],
-                    ["Response: ", put_text(f"Encountered error after 5 tries: {last_error}")]
+                    ["Response: ", put_text(f"Encountered error after 5 tries: {lastError}")]
                 ])
             else:
                 put_table([
