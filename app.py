@@ -52,7 +52,8 @@ def main():
                 for attempt in range(5):
                     try:
                         filename, code = pipeline.generateGraph(query=question)
-                    except Exception as lastError:
+                    except Exception as e:
+                        lastError = str(e)
                         continue
                     message = pipeline.pythonRepl.run(code)
                     if message == "":
