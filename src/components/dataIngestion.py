@@ -33,7 +33,7 @@ class DataIngestion:
             return codeString
         except Exception as e:
             logger.error(f"Error while generating code for CSV files: {e}")
-            raise CustomException(f"dataLoadString error: {e}")
+            raise CustomException(e)
 
     def getAttributeInfo(self, files: list[dict[str, str]]) -> str:
         """
@@ -64,4 +64,4 @@ class DataIngestion:
             return attributeInfo
         except Exception as e:
             logger.error(f"Error while extracting attributes: {e}")
-            raise CustomException(f"getAttributeInfo error: {e}")
+            raise CustomException(e)

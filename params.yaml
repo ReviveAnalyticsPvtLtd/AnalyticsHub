@@ -54,7 +54,39 @@ codeGeneratorPrompt: |
     - Implements the visualization based on the query.
     - Operates exclusively on a copied DataFrame.
     - Ends with `fig.show()` for displaying the chart.
+
+  ## Metadata Structure Understanding:
+  - The metadata follows a hierarchical structure in `metadata.json`:
+    - **First Level**: DataFrame name.
+    - **Second Level Keys Under Each DataFrame Name**:
+      - `description`: Describes the DataFrame's content.
+      - `columns`: A list of dictionaries with keys:
+        - `name`: Column name.
+        - `type`: Column data type.
+        - `description`: Column description.
+      - `sample_row`: Key-value pairs of column names and sample values.
+
+  Example Metadata Structure:
+  ```yaml
+  {{
+    "<dataframe1>": {{
+      "description": "<Description of the dataframe>",
+      "columns": [
+        {{"name": "<column1>", "type": "<column1 datatype>", "description": "<column1 description>"}},
+        {{"name": "<column2>", "type": "<column2 datatype>", "description": "<column2 description>"}}
+      ],
+      "sample_row": {{
+        "<column1>": "<value1>",
+        "<column2>": "<value2>"
+      }}
+    }},
+    "<dataframe2>": {{
+      ...
+    }}
+  }}
+  ```
   </system>
+
 
 metadataGeneratorPrompt: |
   I have a dataset consisting of several dataframes with associated attribute information provided below.

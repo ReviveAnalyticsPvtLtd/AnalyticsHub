@@ -35,7 +35,7 @@ class CodeGenerator:
             return result
         except Exception as e:
             logger.error(f"Error in code generation: {e}")
-            raise CustomException(f"generateCode error: {e}")
+            raise CustomException(e)
 
     def codeRefiner(self, codeBlock: str) -> tuple[str]:
         """
@@ -67,4 +67,4 @@ class CodeGenerator:
             return (filename, refinedCode)
         except Exception as e:
             logger.error(f"Error in code refinement: {e}")
-            raise CustomException(f"codeRefiner error: {e}")
+            raise CustomException(e)

@@ -45,7 +45,7 @@ class QueryChainBuilder:
             return chain
         except Exception as e:
             logger.error(f"Error constructing query processing chain: {e}")
-            raise CustomException(f"getChain error: {e}")
+            raise CustomException(e)
 
     def getMetadataChain(self):
         """
@@ -76,4 +76,4 @@ class QueryChainBuilder:
             return chain
         except Exception as e:
             logger.error(f"Error constructing metadata generation chain: {e}")
-            raise CustomException(f"getMetadataChain error: {e}")
+            raise CustomException(e)

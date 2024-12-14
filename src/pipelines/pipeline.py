@@ -32,7 +32,7 @@ class CompletePipeline:
             replOutput = self.pythonRepl.run(codeString)
 
             if replOutput:
-                raise CustomException(f"Error in data loading: {replOutput}")
+                raise CustomException(e)
             logger.info("Data loaded successfully.")
 
             attributeInfo = self.dataIngestion.getAttributeInfo(files=inputData)
@@ -47,7 +47,7 @@ class CompletePipeline:
             logger.info("Pipeline initialized successfully.")
         except Exception as e:
             logger.error(f"Error during loadData: {e}")
-            raise CustomException(f"loadData error: {e}")
+            raise CustomException(e)
 
     def generateGraph(self, query: str) -> tuple[str]:
         """
@@ -75,4 +75,4 @@ class CompletePipeline:
             return filename, refinedCode
         except Exception as e:
             logger.error(f"Error during generateGraph: {e}")
-            raise CustomException(f"generateGraph error: {e}")
+            raise CustomException(e)
