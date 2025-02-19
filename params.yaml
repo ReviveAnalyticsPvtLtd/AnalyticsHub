@@ -111,6 +111,7 @@ metadataGeneratorPrompt: |
   - `column2` (dtype: `<column2 dtype>`)
   - `column3` (dtype: `<column3 dtype>`)
   ...
+  Shape: (number of rows, number of columns)
   Sample row:
   | column1   | column2   | column3   |
   |-----------|-----------|-----------|
@@ -121,6 +122,7 @@ metadataGeneratorPrompt: |
   - `column2` (dtype: `<column2 dtype>`)
   - `column3` (dtype: `<column3 dtype>`)
   ...
+  Shape: (number of rows, number of columns)
   Sample row:
   | column1   | column2   | column3   |
   |-----------|-----------|-----------|

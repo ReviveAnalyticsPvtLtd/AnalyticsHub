@@ -59,6 +59,7 @@ class DataIngestion:
                 attributeInfo += "DATAFRAME NAME: " + file["filename"][:-4] + "\n"
                 for col in data.columns:
                     attributeInfo += f"- {col} ({data[col].dtype.name}) \n"
+                attributeInfo += "Shape: \n" + str(data.shape) + "\n"
                 attributeInfo += "Sample row: \n" + data.head(1).to_string() + "\n\n"
             logger.info("Attribute extraction completed successfully.")
             return attributeInfo
