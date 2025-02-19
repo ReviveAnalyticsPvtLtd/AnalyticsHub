@@ -39,7 +39,6 @@ class CompletePipeline:
             self.domainContext = domainContext
             self.chain = self.queryChainBuilder.getChain()
             metadata = self.queryChainBuilder.getMetadataChain().invoke({"metadata": attributeInfo})
-            print(metadata)
             metadataParts = metadata.split("```")
             metadata = metadataParts[-2]
             metadata = "\n".join(metadata.split("\n")[1:]) 

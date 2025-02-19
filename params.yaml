@@ -67,22 +67,26 @@ codeGeneratorPrompt: |
       - `sample_row`: Key-value pairs of column names and sample values.
 
   Example Metadata Structure:
-  ```yaml
+  ```json
   {{
-    "<dataframe1>": {{
-      "description": "<Description of the dataframe>",
-      "columns": [
-        {{"name": "<column1>", "type": "<column1 datatype>", "description": "<column1 description>"}},
-        {{"name": "<column2>", "type": "<column2 datatype>", "description": "<column2 description>"}}
-      ],
-      "sample_row": {{
-        "<column1>": "<value1>",
-        "<column2>": "<value2>"
-      }}
-    }},
-    "<dataframe2>": {{
+      "<dataframe1>": {{
+          "description": "<Description of the dataframe>",
+          "shape": "<list of type [nunmber of rows, number of columns]>",
+          "columns": [
+              {{"name": "<column1>", "type": "<column1 datatype>", "description": "<column1 description>"}},
+              {{"name": "<column2>", "type": "<column2 datatype>", "description": "<column2 description>"}},
+              ...
+          ],
+          "sample_row": {{
+              "<column1>": "<value1>",
+              "<column2>": "<value2>",
+              ...
+          }}
+      }},
+      "<dataframe2>": {{
+          ...
+      }},
       ...
-    }}
   }}
   ```
   </system>
@@ -127,6 +131,7 @@ metadataGeneratorPrompt: |
   {{
       "<dataframe1>": {{
           "description": "<Description of the dataframe>",
+          "shape": "<list of type [nunmber of rows, number of columns]>",
           "columns": [
               {{"name": "<column1>", "type": "<column1 datatype>", "description": "<column1 description>"}},
               {{"name": "<column2>", "type": "<column2 datatype>", "description": "<column2 description>"}},
@@ -143,3 +148,4 @@ metadataGeneratorPrompt: |
       }},
       ...
   }}
+  ```
